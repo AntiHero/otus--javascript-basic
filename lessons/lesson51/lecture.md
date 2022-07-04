@@ -214,12 +214,12 @@ $ npm install supertest @types/supertest --save-dev
 ### Пишем свой middleware
 
 ```js
-import Express from "express";
+import express from "express";
 
 const requestLogger = (
-  request: Express.Request,
-  response: Express.Response,
-  next: Express.NextFunction
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
 ) => {
   console.log(req.url, " ", req.method);
   console.log("-------------------");
@@ -244,13 +244,13 @@ $ npm install @types/cookie-session --save-dev
 ```
 
 ```js
-import cookieSession from "cookie-session";
+import session from "cookie-session";
 
 const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(
   session({
-    secret: "sfajnh4faAN99", // обязательное поле
+    secret: "sfajnh4faAN99",
     maxAge: oneDay,
   })
 );
@@ -334,7 +334,9 @@ mongoose
 ### Опишем произвольную схему и на её основе создадим модель.
 
 ```js
-interface IBook {
+import mongoose from "mongoose";
+
+interface BookSchema {
   author: string;
   title: string;
   year: number;
@@ -342,9 +344,9 @@ interface IBook {
 
 const bookSchema =
   new mongoose.Schema() <
-  IBook >
+  BookSchema >
   {
-    author: String,
+    author: { type: String, required: true },
     title: { type: String, required: true },
     year: Number,
   };
@@ -456,6 +458,12 @@ test("should return one book", async () => {
 
 - [**Postman**](https://www.postman.com/)
 - [**Insomnia**](https://insomnia.rest/)
+
+<!-- v -->
+
+## Полезные материалы
+
+[Добавление аутентификации](https://fullstackopen.com/en/part4/token_authentication)
 
 <!-- v -->
 
